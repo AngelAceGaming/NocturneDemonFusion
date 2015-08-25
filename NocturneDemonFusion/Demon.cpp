@@ -289,6 +289,24 @@ DemonType GetDemonType(DemonType type1, DemonType type2)
 {
 	DemonType returnType = None;
 
+	// If either types are elemental, mitama, or none, return none
+	if (type1 == Elemental || type2 == Elemental ||
+		type1 == Mitama || type2 == Mitama ||
+		type1 == None || type2 == None)
+		return None;
+
+	// Check if first type passed is fiend
+	if (type1 == Fiend)
+	{
+		// Fiends can't fuse with other fiends, return none
+		if (type2 == Fiend)
+			return None;
+
+		// Swap types, this way I can prevent the last check and get the same result, cutting 90 lines of code
+		type1 = type2;
+		type2 = Fiend;
+	}
+
 	/*	TODO
 	 *	Finish off the combinations
 	 *	When they're done, comment done by case
@@ -389,12 +407,6 @@ DemonType GetDemonType(DemonType type1, DemonType type2)
 		case Fiend:
 			returnType = None;
 			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
 		}
 		break;
 	case Megami:	// Done!
@@ -488,12 +500,6 @@ DemonType GetDemonType(DemonType type1, DemonType type2)
 			returnType = Deity;
 			break;
 		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
 			returnType = None;
 			break;
 		}
@@ -591,12 +597,6 @@ DemonType GetDemonType(DemonType type1, DemonType type2)
 		case Fiend:
 			returnType = Deity;
 			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
 		}
 		break;
 	case Lady:		// Done!
@@ -692,61 +692,55 @@ DemonType GetDemonType(DemonType type1, DemonType type2)
 		case Fiend:
 			returnType = None;
 			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
 		}
 		break;
-	case Kishin:
+	case Kishin:	// Done!
 		switch (type2)
 		{
 		case Deity:
-			returnType = None;
+			returnType = Fury;
 			break;
 		case Megami:
-			returnType = None;
+			returnType = Lady;
 			break;
 		case Fury:
-			returnType = None;
+			returnType = Lady;
 			break;
 		case Lady:
-			returnType = None;
+			returnType = Fury;
 			break;
 		case Kishin:
 			returnType = None;
 			break;
 		case Holy:
-			returnType = None;
+			returnType = Lady;
 			break;
 		case Yoma:
-			returnType = None;
+			returnType = Femme;
 			break;
 		case Fairy:
-			returnType = None;
+			returnType = Brute;
 			break;
 		case Divine:
-			returnType = None;
+			returnType = Vile;
 			break;
 		case Fallen:
-			returnType = None;
+			returnType = Night;
 			break;
 		case Snake:
-			returnType = None;
+			returnType = Femme;
 			break;
 		case Beast:
-			returnType = None;
+			returnType = Holy;
 			break;
 		case Jirae:
-			returnType = None;
+			returnType = Snake;
 			break;
 		case Brute:
-			returnType = None;
+			returnType = Snake;
 			break;
 		case Femme:
-			returnType = None;
+			returnType = Lady;
 			break;
 		case Vile:
 			returnType = None;
@@ -755,7 +749,7 @@ DemonType GetDemonType(DemonType type1, DemonType type2)
 			returnType = None;
 			break;
 		case Night:
-			returnType = None;
+			returnType = Femme;
 			break;
 		case Wilder:
 			returnType = None;
@@ -767,87 +761,81 @@ DemonType GetDemonType(DemonType type1, DemonType type2)
 			returnType = None;
 			break;
 		case Seraph:
-			returnType = None;
+			returnType = Divine;
 			break;
 		case Wargod:
-			returnType = None;
+			returnType = Fury;
 			break;
 		case Genma:
-			returnType = None;
+			returnType = Megami;
 			break;
 		case Dragon:
-			returnType = None;
+			returnType = Fury;
 			break;
 		case Avatar:
-			returnType = None;
+			returnType = Holy;
 			break;
 		case Avian:
-			returnType = None;
+			returnType = Lady;
 			break;
 		case Raptor:
-			returnType = None;
+			returnType = Tyrant;
 			break;
 		case Entity:
-			returnType = None;
+			returnType = Fury;
 			break;
 		case Fiend:
 			returnType = None;
 			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
 		}
 		break;
-	case Holy:
+	case Holy:		// Done!
 		switch (type2)
 		{
 		case Deity:
-			returnType = None;
+			returnType = Megami;
 			break;
 		case Megami:
-			returnType = None;
+			returnType = Divine;
 			break;
 		case Fury:
-			returnType = None;
+			returnType = Kishin;
 			break;
 		case Lady:
-			returnType = None;
+			returnType = Avatar;
 			break;
 		case Kishin:
-			returnType = None;
+			returnType = Lady;
 			break;
 		case Holy:
-			returnType = None;
+			returnType = Elemental;
 			break;
 		case Yoma:
-			returnType = None;
+			returnType = Divine;
 			break;
 		case Fairy:
-			returnType = None;
+			returnType = Megami;
 			break;
 		case Divine:
-			returnType = None;
+			returnType = Fairy;
 			break;
 		case Fallen:
-			returnType = None;
+			returnType = Beast;
 			break;
 		case Snake:
-			returnType = None;
+			returnType = Kishin;
 			break;
 		case Beast:
-			returnType = None;
+			returnType = Avatar;
 			break;
 		case Jirae:
-			returnType = None;
+			returnType = Beast;
 			break;
 		case Brute:
-			returnType = None;
+			returnType = Femme;
 			break;
 		case Femme:
-			returnType = None;
+			returnType = Lady;
 			break;
 		case Vile:
 			returnType = None;
@@ -856,7 +844,7 @@ DemonType GetDemonType(DemonType type1, DemonType type2)
 			returnType = None;
 			break;
 		case Night:
-			returnType = None;
+			returnType = Fairy;
 			break;
 		case Wilder:
 			returnType = None;
@@ -868,7 +856,102 @@ DemonType GetDemonType(DemonType type1, DemonType type2)
 			returnType = None;
 			break;
 		case Seraph:
+			returnType = Divine;
+			break;
+		case Wargod:
+			returnType = Kishin;
+			break;
+		case Genma:
+			returnType = Yoma;
+			break;
+		case Dragon:
+			returnType = Snake;
+			break;
+		case Avatar:
+			returnType = Megami;
+			break;
+		case Avian:
+			returnType = Lady;
+			break;
+		case Raptor:
+			returnType = Wilder;
+			break;
+		case Entity:
+			returnType = Kishin;
+			break;
+		case Fiend:
 			returnType = None;
+			break;
+		}
+		break;
+	case Yoma:		// Done!
+		switch (type2)
+		{
+		case Deity:
+			returnType = Megami;
+			break;
+		case Megami:
+			returnType = Kishin;
+			break;
+		case Fury:
+			returnType = Holy;
+			break;
+		case Lady:
+			returnType = Night;
+			break;
+		case Kishin:
+			returnType = Femme;
+			break;
+		case Holy:
+			returnType = Divine;
+			break;
+		case Yoma:
+			returnType = Elemental;
+			break;
+		case Fairy:
+			returnType = Holy;
+			break;
+		case Divine:
+			returnType = Snake;
+			break;
+		case Fallen:
+			returnType = Jirae;
+			break;
+		case Snake:
+			returnType = Night;
+			break;
+		case Beast:
+			returnType = Fallen;
+			break;
+		case Jirae:
+			returnType = Beast;
+			break;
+		case Brute:
+			returnType = Femme;
+			break;
+		case Femme:
+			returnType = Brute;
+			break;
+		case Vile:
+			returnType = Jirae;
+			break;
+		case Tyrant:
+			returnType = Night;
+			break;
+		case Night:
+			returnType = Divine;
+			break;
+		case Wilder:
+			returnType = Beast;
+			break;
+		case Haunt:
+			returnType = Jirae;
+			break;
+		case Foul:
+			returnType = Snake;
+			break;
+		case Seraph:
+			returnType = Megami;
 			break;
 		case Wargod:
 			returnType = None;
@@ -877,22 +960,117 @@ DemonType GetDemonType(DemonType type1, DemonType type2)
 			returnType = None;
 			break;
 		case Dragon:
-			returnType = None;
+			returnType = Avatar;
 			break;
 		case Avatar:
-			returnType = None;
+			returnType = Divine;
 			break;
 		case Avian:
-			returnType = None;
+			returnType = Night;
 			break;
 		case Raptor:
-			returnType = None;
+			returnType = Haunt;
 			break;
 		case Entity:
-			returnType = None;
+			returnType = Megami;
 			break;
 		case Fiend:
+			returnType = Night;
+			break;
+		}
+		break;
+	case Fairy:		// Done
+		switch (type2)
+		{
+		case Deity:
+			returnType = Night;
+			break;
+		case Megami:
+			returnType = Fallen;
+			break;
+		case Fury:
+			returnType = Brute;
+			break;
+		case Lady:
+			returnType = Yoma;
+			break;
+		case Kishin:
+			returnType = Brute;
+			break;
+		case Holy:
+			returnType = Megami;
+			break;
+		case Yoma:
+			returnType = Holy;
+			break;
+		case Fairy:
+			returnType = Elemental;
+			break;
+		case Divine:
+			returnType = Megami;
+			break;
+		case Fallen:
+			returnType = Yoma;
+			break;
+		case Snake:
+			returnType = Yoma;
+			break;
+		case Beast:
+			returnType = Divine;
+			break;
+		case Jirae:
+			returnType = Yoma;
+			break;
+		case Brute:
+			returnType = Night;
+			break;
+		case Femme:
+			returnType = Haunt;
+			break;
+		case Vile:
+			returnType = Night;
+			break;
+		case Tyrant:
+			returnType = Night;
+			break;
+		case Night:
+			returnType = Snake;
+			break;
+		case Wilder:
+			returnType = Yoma;
+			break;
+		case Haunt:
+			returnType = Night;
+			break;
+		case Foul:
+			returnType = Haunt;
+			break;
+		case Seraph:
+			returnType = Holy;
+			break;
+		case Wargod:
 			returnType = None;
+			break;
+		case Genma:
+			returnType = None;
+			break;
+		case Dragon:
+			returnType = Snake;
+			break;
+		case Avatar:
+			returnType = Divine;
+			break;
+		case Avian:
+			returnType = Night;
+			break;
+		case Raptor:
+			returnType = Haunt;
+			break;
+		case Entity:
+			returnType = Megami;
+			break;
+		case Fiend:
+			returnType = Night;
 			break;
 		case Elemental:
 			returnType = None;
@@ -902,17 +1080,682 @@ DemonType GetDemonType(DemonType type1, DemonType type2)
 			break;
 		}
 		break;
-	case Yoma:
+	case Divine:	// Done
+		switch (type2)
+		{
+		case Deity:
+			returnType = Megami;
+			break;
+		case Megami:
+			returnType = Holy;
+			break;
+		case Fury:
+			returnType = Deity;
+			break;
+		case Lady:
+			returnType = Megami;
+			break;
+		case Kishin:
+			returnType = Vile;
+			break;
+		case Holy:
+			returnType = Fairy;
+			break;
+		case Yoma:
+			returnType = Snake;
+			break;
+		case Fairy:
+			returnType = Megami;
+			break;
+		case Divine:
+			returnType = Elemental;
+			break;
+		case Fallen:
+			returnType = Vile;
+			break;
+		case Snake:
+			returnType = Fairy;
+			break;
+		case Beast:
+			returnType = Holy;
+			break;
+		case Jirae:
+			returnType = Night;
+			break;
+		case Brute:
+			returnType = Yoma;
+			break;
+		case Femme:
+			returnType = Beast;
+			break;
+		case Vile:
+			returnType = Fallen;
+			break;
+		case Tyrant:
+			returnType = Vile;
+			break;
+		case Night:
+			returnType = Snake;
+			break;
+		case Wilder:
+			returnType = Fallen;
+			break;
+		case Haunt:
+			returnType = Jirae;
+			break;
+		case Foul:
+			returnType = Fairy;
+			break;
+		case Seraph:
+			returnType = Megami;
+			break;
+		case Wargod:
+			returnType = Holy;
+			break;
+		case Genma:
+			returnType = Megami;
+			break;
+		case Dragon:
+			returnType = Megami;
+			break;
+		case Avatar:
+			returnType = Megami;
+			break;
+		case Avian:
+			returnType = Snake;
+			break;
+		case Raptor:
+			returnType = Foul;
+			break;
+		case Entity:
+			returnType = Megami;
+			break;
+		case Fiend:
+			returnType = Vile;
+			break;
+		}
+		break;
+	case Fallen:	// Done
+		switch (type2)
+		{
+		case Deity:
+			returnType = Fury;
+			break;
+		case Megami:
+			returnType = Divine;
+			break;
+		case Fury:
+			returnType = Vile;
+			break;
+		case Lady:
+			returnType = Fury;
+			break;
+		case Kishin:
+			returnType = Night;
+			break;
+		case Holy:
+			returnType = Beast;
+			break;
+		case Yoma:
+			returnType = Jirae;
+			break;
+		case Fairy:
+			returnType = Yoma;
+			break;
+		case Divine:
+			returnType = Vile;
+			break;
+		case Fallen:
+			returnType = Elemental;
+			break;
+		case Snake:
+			returnType = Beast;
+			break;
+		case Beast:
+			returnType = Night;
+			break;
+		case Jirae:
+			returnType = Brute;
+			break;
+		case Brute:
+			returnType = Jirae;
+			break;
+		case Femme:
+			returnType = Wilder;
+			break;
+		case Vile:
+			returnType = Brute;
+			break;
+		case Tyrant:
+			returnType = Fury;
+			break;
+		case Night:
+			returnType = Haunt;
+			break;
+		case Wilder:
+			returnType = Night;
+			break;
+		case Haunt:
+			returnType = Night;
+			break;
+		case Foul:
+			returnType = Vile;
+			break;
+		case Seraph:
+			returnType = Lady;
+			break;
+		case Wargod:
+			returnType = Lady;
+			break;
+		case Genma:
+			returnType = Lady;
+			break;
+		case Dragon:
+			returnType = Snake;
+			break;
+		case Avatar:
+			returnType = Divine;
+			break;
+		case Avian:
+			returnType = Snake;
+			break;
+		case Raptor:
+			returnType = Foul;
+			break;
+		case Entity:
+			returnType = Kishin;
+			break;
+		case Fiend:
+			returnType = Fury;
+			break;
+		}
+		break;
+	case Snake:		// Done
+		switch (type2)
+		{
+		case Deity:
+			returnType = Kishin;
+			break;
+		case Megami:
+			returnType = Fairy;
+			break;
+		case Fury:
+			returnType = Kishin;
+			break;
+		case Lady:
+			returnType = Femme;
+			break;
+		case Kishin:
+			returnType = Femme;
+			break;
+		case Holy:
+			returnType = Kishin;
+			break;
+		case Yoma:
+			returnType = Night;
+			break;
+		case Fairy:
+			returnType = Yoma;
+			break;
+		case Divine:
+			returnType = Fairy;
+			break;
+		case Fallen:
+			returnType = Beast;
+			break;
+		case Snake:
+			returnType = Elemental;
+			break;
+		case Beast:
+			returnType = Brute;
+			break;
+		case Jirae:
+			returnType = Fallen;
+			break;
+		case Brute:
+			returnType = Beast;
+			break;
+		case Femme:
+			returnType = Kishin;
+			break;
+		case Vile:
+			returnType = Kishin;
+			break;
+		case Tyrant:
+			returnType = Brute;
+			break;
+		case Night:
+			returnType = Fallen;
+			break;
+		case Wilder:
+			returnType = Night;
+			break;
+		case Haunt:
+			returnType = Brute;
+			break;
+		case Foul:
+			returnType = Fallen;
+			break;
+		case Seraph:
+			returnType = None;
+			break;
+		case Wargod:
+			returnType = Kishin;
+			break;
+		case Genma:
+			returnType = Femme;
+			break;
+		case Dragon:
+			returnType = Lady;
+			break;
+		case Avatar:
+			returnType = Lady;
+			break;
+		case Avian:
+			returnType = Kishin;
+			break;
+		case Raptor:
+			returnType = Foul;
+			break;
+		case Entity:
+			returnType = Fury;
+			break;
+		case Fiend:
+			returnType = Brute;
+			break;
+		}
+		break;
+	case Beast:		// Done
+		switch (type2)
+		{
+		case Deity:
+			returnType = Avatar;
+			break;
+		case Megami:
+			returnType = Holy;
+			break;
+		case Fury:
+			returnType = Avatar;
+			break;
+		case Lady:
+			returnType = Snake;
+			break;
+		case Kishin:
+			returnType = Holy;
+			break;
+		case Holy:
+			returnType = Avatar;
+			break;
+		case Yoma:
+			returnType = Fallen;
+			break;
+		case Fairy:
+			returnType = Divine;
+			break;
+		case Divine:
+			returnType = Holy;
+			break;
+		case Fallen:
+			returnType = Night;
+			break;
+		case Snake:
+			returnType = Brute;
+			break;
+		case Beast:
+			returnType = Elemental;
+			break;
+		case Jirae:
+			returnType = Yoma;
+			break;
+		case Brute:
+			returnType = Femme;
+			break;
+		case Femme:
+			returnType = Foul;
+			break;
+		case Vile:
+			returnType = Foul;
+			break;
+		case Tyrant:
+			returnType = Night;
+			break;
+		case Night:
+			returnType = Fairy;
+			break;
+		case Wilder:
+			returnType = Jirae;
+			break;
+		case Haunt:
+			returnType = Wilder;
+			break;
+		case Foul:
+			returnType = Wilder;
+			break;
+		case Seraph:
+			returnType = None;
+			break;
+		case Wargod:
+			returnType = Holy;
+			break;
+		case Genma:
+			returnType = Fairy;
+			break;
+		case Dragon:
+			returnType = Snake;
+			break;
+		case Avatar:
+			returnType = Snake;
+			break;
+		case Avian:
+			returnType = Femme;
+			break;
+		case Raptor:
+			returnType = Wilder;
+			break;
+		case Entity:
+			returnType = Holy;
+			break;
+		case Fiend:
+			returnType = Night;
+			break;
+		}
+		break;
+	case Jirae:		// Done
+		switch (type2)
+		{
+		case Deity:
+			returnType = Brute;
+			break;
+		case Megami:
+			returnType = Lady;
+			break;
+		case Fury:
+			returnType = Femme;
+			break;
+		case Lady:
+			returnType = Beast;
+			break;
+		case Kishin:
+			returnType = Snake;
+			break;
+		case Holy:
+			returnType = Beast;
+			break;
+		case Yoma:
+			returnType = Beast;
+			break;
+		case Fairy:
+			returnType = Yoma;
+			break;
+		case Divine:
+			returnType = Night;
+			break;
+		case Fallen:
+			returnType = Brute;
+			break;
+		case Snake:
+			returnType = Fallen;
+			break;
+		case Beast:
+			returnType = Yoma;
+			break;
+		case Jirae:
+			returnType = Elemental;
+			break;
+		case Brute:
+			returnType = Fairy;
+			break;
+		case Femme:
+			returnType = Wilder;
+			break;
+		case Vile:
+			returnType = Haunt;
+			break;
+		case Tyrant:
+			returnType = Wilder;
+			break;
+		case Night:
+			returnType = Foul;
+			break;
+		case Wilder:
+			returnType = Brute;
+			break;
+		case Haunt:
+			returnType = Vile;
+			break;
+		case Foul:
+			returnType = Femme;
+			break;
+		case Seraph:
+			returnType = None;
+			break;
+		case Wargod:
+			returnType = Kishin;
+			break;
+		case Genma:
+			returnType = Lady;
+			break;
+		case Dragon:
+			returnType = Kishin;
+			break;
+		case Avatar:
+			returnType = Lady;
+			break;
+		case Avian:
+			returnType = Kishin;
+			break;
+		case Raptor:
+			returnType = Kishin;
+			break;
+		case Entity:
+			returnType = Kishin;
+			break;
+		case Fiend:
+			returnType = Wilder;
+			break;
+		}
+		break;
+	case Brute:		// Done
+		switch (type2)
+		{
+		case Deity:
+			returnType = Kishin;
+			break;
+		case Megami:
+			returnType = Femme;
+			break;
+		case Fury:
+			returnType = Lady;
+			break;
+		case Lady:
+			returnType = Fury;
+			break;
+		case Kishin:
+			returnType = Snake;
+			break;
+		case Holy:
+			returnType = Femme;
+			break;
+		case Yoma:
+			returnType = Femme;
+			break;
+		case Fairy:
+			returnType = Night;
+			break;
+		case Divine:
+			returnType = Yoma;
+			break;
+		case Fallen:
+			returnType = Jirae;
+			break;
+		case Snake:
+			returnType = Beast;
+			break;
+		case Beast:
+			returnType = Femme;
+			break;
+		case Jirae:
+			returnType = Fairy;
+			break;
+		case Brute:
+			returnType = Elemental;
+			break;
+		case Femme:
+			returnType = Beast;
+			break;
+		case Vile:
+			returnType = Haunt;
+			break;
+		case Tyrant:
+			returnType = Haunt;
+			break;
+		case Night:
+			returnType = Kishin;
+			break;
+		case Wilder:
+			returnType = Fairy;
+			break;
+		case Haunt:
+			returnType = Foul;
+			break;
+		case Foul:
+			returnType = Wilder;
+			break;
+		case Seraph:
+			returnType = None;
+			break;
+		case Wargod:
+			returnType = None;
+			break;
+		case Genma:
+			returnType = Divine;
+			break;
+		case Dragon:
+			returnType = Night;
+			break;
+		case Avatar:
+			returnType = Kishin;
+			break;
+		case Avian:
+			returnType = Kishin;
+			break;
+		case Raptor:
+			returnType = Fury;
+			break;
+		case Entity:
+			returnType = Fury;
+			break;
+		case Fiend:
+			returnType = Haunt;
+			break;
+		}
+		break;
+	case Femme:		// Done
+		switch (type2)
+		{
+		case Deity:
+			returnType = Lady;
+			break;
+		case Megami:
+			returnType = Fairy;
+			break;
+		case Fury:
+			returnType = Lady;
+			break;
+		case Lady:
+			returnType = Kishin;
+			break;
+		case Kishin:
+			returnType = Lady;
+			break;
+		case Holy:
+			returnType = Lady;
+			break;
+		case Yoma:
+			returnType = Brute;
+			break;
+		case Fairy:
+			returnType = Haunt;
+			break;
+		case Divine:
+			returnType = Beast;
+			break;
+		case Fallen:
+			returnType = Wilder;
+			break;
+		case Snake:
+			returnType = Kishin;
+			break;
+		case Beast:
+			returnType = Foul;
+			break;
+		case Jirae:
+			returnType = Wilder;
+			break;
+		case Brute:
+			returnType = Beast;
+			break;
+		case Femme:
+			returnType = Elemental;
+			break;
+		case Vile:
+			returnType = Brute;
+			break;
+		case Tyrant:
+			returnType = Lady;
+			break;
+		case Night:
+			returnType = Jirae;
+			break;
+		case Wilder:
+			returnType = Fallen;
+			break;
+		case Haunt:
+			returnType = Foul;
+			break;
+		case Foul:
+			returnType = Wilder;
+			break;
+		case Seraph:
+			returnType = None;
+			break;
+		case Wargod:
+			returnType = None;
+			break;
+		case Genma:
+			returnType = Night;
+			break;
+		case Dragon:
+			returnType = Night;
+			break;
+		case Avatar:
+			returnType = Kishin;
+			break;
+		case Avian:
+			returnType = Brute;
+			break;
+		case Raptor:
+			returnType = Foul;
+			break;
+		case Entity:
+			returnType = Lady;
+			break;
+		case Fiend:
+			returnType = Lady;
+			break;
+		}
+		break;
+	case Vile:		// Done
 		switch (type2)
 		{
 		case Deity:
 			returnType = None;
 			break;
 		case Megami:
-			returnType = None;
+			returnType = Fury;
 			break;
 		case Fury:
-			returnType = None;
+			returnType = Tyrant;
 			break;
 		case Lady:
 			returnType = None;
@@ -924,991 +1767,76 @@ DemonType GetDemonType(DemonType type1, DemonType type2)
 			returnType = None;
 			break;
 		case Yoma:
-			returnType = None;
+			returnType = Jirae;
 			break;
 		case Fairy:
-			returnType = None;
+			returnType = Night;
 			break;
 		case Divine:
-			returnType = None;
+			returnType = Fallen;
 			break;
 		case Fallen:
-			returnType = None;
+			returnType = Brute;
 			break;
 		case Snake:
-			returnType = None;
+			returnType = Kishin;
 			break;
 		case Beast:
-			returnType = None;
+			returnType = Foul;
 			break;
 		case Jirae:
-			returnType = None;
+			returnType = Haunt;
 			break;
 		case Brute:
-			returnType = None;
+			returnType = Haunt;
 			break;
 		case Femme:
-			returnType = None;
+			returnType = Brute;
 			break;
 		case Vile:
 			returnType = None;
 			break;
 		case Tyrant:
-			returnType = None;
+			returnType = Fury;
 			break;
 		case Night:
-			returnType = None;
+			returnType = Lady;
 			break;
 		case Wilder:
-			returnType = None;
+			returnType = Foul;
 			break;
 		case Haunt:
-			returnType = None;
+			returnType = Foul;
 			break;
 		case Foul:
-			returnType = None;
+			returnType = Haunt;
 			break;
 		case Seraph:
-			returnType = None;
+			returnType = Divine;
 			break;
 		case Wargod:
-			returnType = None;
+			returnType = Kishin;
 			break;
 		case Genma:
-			returnType = None;
+			returnType = Yoma;
 			break;
 		case Dragon:
-			returnType = None;
+			returnType = Snake;
 			break;
 		case Avatar:
-			returnType = None;
+			returnType = Deity;
 			break;
 		case Avian:
 			returnType = None;
 			break;
 		case Raptor:
-			returnType = None;
+			returnType = Fury;
 			break;
 		case Entity:
 			returnType = None;
 			break;
 		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
-		}
-		break;
-	case Fairy:
-		switch (type2)
-		{
-		case Deity:
-			returnType = None;
-			break;
-		case Megami:
-			returnType = None;
-			break;
-		case Fury:
-			returnType = None;
-			break;
-		case Lady:
-			returnType = None;
-			break;
-		case Kishin:
-			returnType = None;
-			break;
-		case Holy:
-			returnType = None;
-			break;
-		case Yoma:
-			returnType = None;
-			break;
-		case Fairy:
-			returnType = None;
-			break;
-		case Divine:
-			returnType = None;
-			break;
-		case Fallen:
-			returnType = None;
-			break;
-		case Snake:
-			returnType = None;
-			break;
-		case Beast:
-			returnType = None;
-			break;
-		case Jirae:
-			returnType = None;
-			break;
-		case Brute:
-			returnType = None;
-			break;
-		case Femme:
-			returnType = None;
-			break;
-		case Vile:
-			returnType = None;
-			break;
-		case Tyrant:
-			returnType = None;
-			break;
-		case Night:
-			returnType = None;
-			break;
-		case Wilder:
-			returnType = None;
-			break;
-		case Haunt:
-			returnType = None;
-			break;
-		case Foul:
-			returnType = None;
-			break;
-		case Seraph:
-			returnType = None;
-			break;
-		case Wargod:
-			returnType = None;
-			break;
-		case Genma:
-			returnType = None;
-			break;
-		case Dragon:
-			returnType = None;
-			break;
-		case Avatar:
-			returnType = None;
-			break;
-		case Avian:
-			returnType = None;
-			break;
-		case Raptor:
-			returnType = None;
-			break;
-		case Entity:
-			returnType = None;
-			break;
-		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
-		}
-		break;
-	case Divine:
-		switch (type2)
-		{
-		case Deity:
-			returnType = None;
-			break;
-		case Megami:
-			returnType = None;
-			break;
-		case Fury:
-			returnType = None;
-			break;
-		case Lady:
-			returnType = None;
-			break;
-		case Kishin:
-			returnType = None;
-			break;
-		case Holy:
-			returnType = None;
-			break;
-		case Yoma:
-			returnType = None;
-			break;
-		case Fairy:
-			returnType = None;
-			break;
-		case Divine:
-			returnType = None;
-			break;
-		case Fallen:
-			returnType = None;
-			break;
-		case Snake:
-			returnType = None;
-			break;
-		case Beast:
-			returnType = None;
-			break;
-		case Jirae:
-			returnType = None;
-			break;
-		case Brute:
-			returnType = None;
-			break;
-		case Femme:
-			returnType = None;
-			break;
-		case Vile:
-			returnType = None;
-			break;
-		case Tyrant:
-			returnType = None;
-			break;
-		case Night:
-			returnType = None;
-			break;
-		case Wilder:
-			returnType = None;
-			break;
-		case Haunt:
-			returnType = None;
-			break;
-		case Foul:
-			returnType = None;
-			break;
-		case Seraph:
-			returnType = None;
-			break;
-		case Wargod:
-			returnType = None;
-			break;
-		case Genma:
-			returnType = None;
-			break;
-		case Dragon:
-			returnType = None;
-			break;
-		case Avatar:
-			returnType = None;
-			break;
-		case Avian:
-			returnType = None;
-			break;
-		case Raptor:
-			returnType = None;
-			break;
-		case Entity:
-			returnType = None;
-			break;
-		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
-		}
-		break;
-	case Fallen:
-		switch (type2)
-		{
-		case Deity:
-			returnType = None;
-			break;
-		case Megami:
-			returnType = None;
-			break;
-		case Fury:
-			returnType = None;
-			break;
-		case Lady:
-			returnType = None;
-			break;
-		case Kishin:
-			returnType = None;
-			break;
-		case Holy:
-			returnType = None;
-			break;
-		case Yoma:
-			returnType = None;
-			break;
-		case Fairy:
-			returnType = None;
-			break;
-		case Divine:
-			returnType = None;
-			break;
-		case Fallen:
-			returnType = None;
-			break;
-		case Snake:
-			returnType = None;
-			break;
-		case Beast:
-			returnType = None;
-			break;
-		case Jirae:
-			returnType = None;
-			break;
-		case Brute:
-			returnType = None;
-			break;
-		case Femme:
-			returnType = None;
-			break;
-		case Vile:
-			returnType = None;
-			break;
-		case Tyrant:
-			returnType = None;
-			break;
-		case Night:
-			returnType = None;
-			break;
-		case Wilder:
-			returnType = None;
-			break;
-		case Haunt:
-			returnType = None;
-			break;
-		case Foul:
-			returnType = None;
-			break;
-		case Seraph:
-			returnType = None;
-			break;
-		case Wargod:
-			returnType = None;
-			break;
-		case Genma:
-			returnType = None;
-			break;
-		case Dragon:
-			returnType = None;
-			break;
-		case Avatar:
-			returnType = None;
-			break;
-		case Avian:
-			returnType = None;
-			break;
-		case Raptor:
-			returnType = None;
-			break;
-		case Entity:
-			returnType = None;
-			break;
-		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
-		}
-		break;
-	case Snake:
-		switch (type2)
-		{
-		case Deity:
-			returnType = None;
-			break;
-		case Megami:
-			returnType = None;
-			break;
-		case Fury:
-			returnType = None;
-			break;
-		case Lady:
-			returnType = None;
-			break;
-		case Kishin:
-			returnType = None;
-			break;
-		case Holy:
-			returnType = None;
-			break;
-		case Yoma:
-			returnType = None;
-			break;
-		case Fairy:
-			returnType = None;
-			break;
-		case Divine:
-			returnType = None;
-			break;
-		case Fallen:
-			returnType = None;
-			break;
-		case Snake:
-			returnType = None;
-			break;
-		case Beast:
-			returnType = None;
-			break;
-		case Jirae:
-			returnType = None;
-			break;
-		case Brute:
-			returnType = None;
-			break;
-		case Femme:
-			returnType = None;
-			break;
-		case Vile:
-			returnType = None;
-			break;
-		case Tyrant:
-			returnType = None;
-			break;
-		case Night:
-			returnType = None;
-			break;
-		case Wilder:
-			returnType = None;
-			break;
-		case Haunt:
-			returnType = None;
-			break;
-		case Foul:
-			returnType = None;
-			break;
-		case Seraph:
-			returnType = None;
-			break;
-		case Wargod:
-			returnType = None;
-			break;
-		case Genma:
-			returnType = None;
-			break;
-		case Dragon:
-			returnType = None;
-			break;
-		case Avatar:
-			returnType = None;
-			break;
-		case Avian:
-			returnType = None;
-			break;
-		case Raptor:
-			returnType = None;
-			break;
-		case Entity:
-			returnType = None;
-			break;
-		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
-		}
-		break;
-	case Beast:
-		switch (type2)
-		{
-		case Deity:
-			returnType = None;
-			break;
-		case Megami:
-			returnType = None;
-			break;
-		case Fury:
-			returnType = None;
-			break;
-		case Lady:
-			returnType = None;
-			break;
-		case Kishin:
-			returnType = None;
-			break;
-		case Holy:
-			returnType = None;
-			break;
-		case Yoma:
-			returnType = None;
-			break;
-		case Fairy:
-			returnType = None;
-			break;
-		case Divine:
-			returnType = None;
-			break;
-		case Fallen:
-			returnType = None;
-			break;
-		case Snake:
-			returnType = None;
-			break;
-		case Beast:
-			returnType = None;
-			break;
-		case Jirae:
-			returnType = None;
-			break;
-		case Brute:
-			returnType = None;
-			break;
-		case Femme:
-			returnType = None;
-			break;
-		case Vile:
-			returnType = None;
-			break;
-		case Tyrant:
-			returnType = None;
-			break;
-		case Night:
-			returnType = None;
-			break;
-		case Wilder:
-			returnType = None;
-			break;
-		case Haunt:
-			returnType = None;
-			break;
-		case Foul:
-			returnType = None;
-			break;
-		case Seraph:
-			returnType = None;
-			break;
-		case Wargod:
-			returnType = None;
-			break;
-		case Genma:
-			returnType = None;
-			break;
-		case Dragon:
-			returnType = None;
-			break;
-		case Avatar:
-			returnType = None;
-			break;
-		case Avian:
-			returnType = None;
-			break;
-		case Raptor:
-			returnType = None;
-			break;
-		case Entity:
-			returnType = None;
-			break;
-		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
-		}
-		break;
-	case Jirae:
-		switch (type2)
-		{
-		case Deity:
-			returnType = None;
-			break;
-		case Megami:
-			returnType = None;
-			break;
-		case Fury:
-			returnType = None;
-			break;
-		case Lady:
-			returnType = None;
-			break;
-		case Kishin:
-			returnType = None;
-			break;
-		case Holy:
-			returnType = None;
-			break;
-		case Yoma:
-			returnType = None;
-			break;
-		case Fairy:
-			returnType = None;
-			break;
-		case Divine:
-			returnType = None;
-			break;
-		case Fallen:
-			returnType = None;
-			break;
-		case Snake:
-			returnType = None;
-			break;
-		case Beast:
-			returnType = None;
-			break;
-		case Jirae:
-			returnType = None;
-			break;
-		case Brute:
-			returnType = None;
-			break;
-		case Femme:
-			returnType = None;
-			break;
-		case Vile:
-			returnType = None;
-			break;
-		case Tyrant:
-			returnType = None;
-			break;
-		case Night:
-			returnType = None;
-			break;
-		case Wilder:
-			returnType = None;
-			break;
-		case Haunt:
-			returnType = None;
-			break;
-		case Foul:
-			returnType = None;
-			break;
-		case Seraph:
-			returnType = None;
-			break;
-		case Wargod:
-			returnType = None;
-			break;
-		case Genma:
-			returnType = None;
-			break;
-		case Dragon:
-			returnType = None;
-			break;
-		case Avatar:
-			returnType = None;
-			break;
-		case Avian:
-			returnType = None;
-			break;
-		case Raptor:
-			returnType = None;
-			break;
-		case Entity:
-			returnType = None;
-			break;
-		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
-		}
-		break;
-	case Brute:
-		switch (type2)
-		{
-		case Deity:
-			returnType = None;
-			break;
-		case Megami:
-			returnType = None;
-			break;
-		case Fury:
-			returnType = None;
-			break;
-		case Lady:
-			returnType = None;
-			break;
-		case Kishin:
-			returnType = None;
-			break;
-		case Holy:
-			returnType = None;
-			break;
-		case Yoma:
-			returnType = None;
-			break;
-		case Fairy:
-			returnType = None;
-			break;
-		case Divine:
-			returnType = None;
-			break;
-		case Fallen:
-			returnType = None;
-			break;
-		case Snake:
-			returnType = None;
-			break;
-		case Beast:
-			returnType = None;
-			break;
-		case Jirae:
-			returnType = None;
-			break;
-		case Brute:
-			returnType = None;
-			break;
-		case Femme:
-			returnType = None;
-			break;
-		case Vile:
-			returnType = None;
-			break;
-		case Tyrant:
-			returnType = None;
-			break;
-		case Night:
-			returnType = None;
-			break;
-		case Wilder:
-			returnType = None;
-			break;
-		case Haunt:
-			returnType = None;
-			break;
-		case Foul:
-			returnType = None;
-			break;
-		case Seraph:
-			returnType = None;
-			break;
-		case Wargod:
-			returnType = None;
-			break;
-		case Genma:
-			returnType = None;
-			break;
-		case Dragon:
-			returnType = None;
-			break;
-		case Avatar:
-			returnType = None;
-			break;
-		case Avian:
-			returnType = None;
-			break;
-		case Raptor:
-			returnType = None;
-			break;
-		case Entity:
-			returnType = None;
-			break;
-		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
-		}
-		break;
-	case Femme:
-		switch (type2)
-		{
-		case Deity:
-			returnType = None;
-			break;
-		case Megami:
-			returnType = None;
-			break;
-		case Fury:
-			returnType = None;
-			break;
-		case Lady:
-			returnType = None;
-			break;
-		case Kishin:
-			returnType = None;
-			break;
-		case Holy:
-			returnType = None;
-			break;
-		case Yoma:
-			returnType = None;
-			break;
-		case Fairy:
-			returnType = None;
-			break;
-		case Divine:
-			returnType = None;
-			break;
-		case Fallen:
-			returnType = None;
-			break;
-		case Snake:
-			returnType = None;
-			break;
-		case Beast:
-			returnType = None;
-			break;
-		case Jirae:
-			returnType = None;
-			break;
-		case Brute:
-			returnType = None;
-			break;
-		case Femme:
-			returnType = None;
-			break;
-		case Vile:
-			returnType = None;
-			break;
-		case Tyrant:
-			returnType = None;
-			break;
-		case Night:
-			returnType = None;
-			break;
-		case Wilder:
-			returnType = None;
-			break;
-		case Haunt:
-			returnType = None;
-			break;
-		case Foul:
-			returnType = None;
-			break;
-		case Seraph:
-			returnType = None;
-			break;
-		case Wargod:
-			returnType = None;
-			break;
-		case Genma:
-			returnType = None;
-			break;
-		case Dragon:
-			returnType = None;
-			break;
-		case Avatar:
-			returnType = None;
-			break;
-		case Avian:
-			returnType = None;
-			break;
-		case Raptor:
-			returnType = None;
-			break;
-		case Entity:
-			returnType = None;
-			break;
-		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
-		}
-		break;
-	case Vile:
-		switch (type2)
-		{
-		case Deity:
-			returnType = None;
-			break;
-		case Megami:
-			returnType = None;
-			break;
-		case Fury:
-			returnType = None;
-			break;
-		case Lady:
-			returnType = None;
-			break;
-		case Kishin:
-			returnType = None;
-			break;
-		case Holy:
-			returnType = None;
-			break;
-		case Yoma:
-			returnType = None;
-			break;
-		case Fairy:
-			returnType = None;
-			break;
-		case Divine:
-			returnType = None;
-			break;
-		case Fallen:
-			returnType = None;
-			break;
-		case Snake:
-			returnType = None;
-			break;
-		case Beast:
-			returnType = None;
-			break;
-		case Jirae:
-			returnType = None;
-			break;
-		case Brute:
-			returnType = None;
-			break;
-		case Femme:
-			returnType = None;
-			break;
-		case Vile:
-			returnType = None;
-			break;
-		case Tyrant:
-			returnType = None;
-			break;
-		case Night:
-			returnType = None;
-			break;
-		case Wilder:
-			returnType = None;
-			break;
-		case Haunt:
-			returnType = None;
-			break;
-		case Foul:
-			returnType = None;
-			break;
-		case Seraph:
-			returnType = None;
-			break;
-		case Wargod:
-			returnType = None;
-			break;
-		case Genma:
-			returnType = None;
-			break;
-		case Dragon:
-			returnType = None;
-			break;
-		case Avatar:
-			returnType = None;
-			break;
-		case Avian:
-			returnType = None;
-			break;
-		case Raptor:
-			returnType = None;
-			break;
-		case Entity:
-			returnType = None;
-			break;
-		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
+			returnType = Fury;
 			break;
 		}
 		break;
@@ -3125,309 +3053,6 @@ DemonType GetDemonType(DemonType type1, DemonType type2)
 		}
 		break;
 	case Entity:
-		switch (type2)
-		{
-		case Deity:
-			returnType = None;
-			break;
-		case Megami:
-			returnType = None;
-			break;
-		case Fury:
-			returnType = None;
-			break;
-		case Lady:
-			returnType = None;
-			break;
-		case Kishin:
-			returnType = None;
-			break;
-		case Holy:
-			returnType = None;
-			break;
-		case Yoma:
-			returnType = None;
-			break;
-		case Fairy:
-			returnType = None;
-			break;
-		case Divine:
-			returnType = None;
-			break;
-		case Fallen:
-			returnType = None;
-			break;
-		case Snake:
-			returnType = None;
-			break;
-		case Beast:
-			returnType = None;
-			break;
-		case Jirae:
-			returnType = None;
-			break;
-		case Brute:
-			returnType = None;
-			break;
-		case Femme:
-			returnType = None;
-			break;
-		case Vile:
-			returnType = None;
-			break;
-		case Tyrant:
-			returnType = None;
-			break;
-		case Night:
-			returnType = None;
-			break;
-		case Wilder:
-			returnType = None;
-			break;
-		case Haunt:
-			returnType = None;
-			break;
-		case Foul:
-			returnType = None;
-			break;
-		case Seraph:
-			returnType = None;
-			break;
-		case Wargod:
-			returnType = None;
-			break;
-		case Genma:
-			returnType = None;
-			break;
-		case Dragon:
-			returnType = None;
-			break;
-		case Avatar:
-			returnType = None;
-			break;
-		case Avian:
-			returnType = None;
-			break;
-		case Raptor:
-			returnType = None;
-			break;
-		case Entity:
-			returnType = None;
-			break;
-		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
-		}
-		break;
-	case Fiend:
-		switch (type2)
-		{
-		case Deity:
-			returnType = None;
-			break;
-		case Megami:
-			returnType = None;
-			break;
-		case Fury:
-			returnType = None;
-			break;
-		case Lady:
-			returnType = None;
-			break;
-		case Kishin:
-			returnType = None;
-			break;
-		case Holy:
-			returnType = None;
-			break;
-		case Yoma:
-			returnType = None;
-			break;
-		case Fairy:
-			returnType = None;
-			break;
-		case Divine:
-			returnType = None;
-			break;
-		case Fallen:
-			returnType = None;
-			break;
-		case Snake:
-			returnType = None;
-			break;
-		case Beast:
-			returnType = None;
-			break;
-		case Jirae:
-			returnType = None;
-			break;
-		case Brute:
-			returnType = None;
-			break;
-		case Femme:
-			returnType = None;
-			break;
-		case Vile:
-			returnType = None;
-			break;
-		case Tyrant:
-			returnType = None;
-			break;
-		case Night:
-			returnType = None;
-			break;
-		case Wilder:
-			returnType = None;
-			break;
-		case Haunt:
-			returnType = None;
-			break;
-		case Foul:
-			returnType = None;
-			break;
-		case Seraph:
-			returnType = None;
-			break;
-		case Wargod:
-			returnType = None;
-			break;
-		case Genma:
-			returnType = None;
-			break;
-		case Dragon:
-			returnType = None;
-			break;
-		case Avatar:
-			returnType = None;
-			break;
-		case Avian:
-			returnType = None;
-			break;
-		case Raptor:
-			returnType = None;
-			break;
-		case Entity:
-			returnType = None;
-			break;
-		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
-		}
-		break;
-	case Elemental:
-		switch (type2)
-		{
-		case Deity:
-			returnType = None;
-			break;
-		case Megami:
-			returnType = None;
-			break;
-		case Fury:
-			returnType = None;
-			break;
-		case Lady:
-			returnType = None;
-			break;
-		case Kishin:
-			returnType = None;
-			break;
-		case Holy:
-			returnType = None;
-			break;
-		case Yoma:
-			returnType = None;
-			break;
-		case Fairy:
-			returnType = None;
-			break;
-		case Divine:
-			returnType = None;
-			break;
-		case Fallen:
-			returnType = None;
-			break;
-		case Snake:
-			returnType = None;
-			break;
-		case Beast:
-			returnType = None;
-			break;
-		case Jirae:
-			returnType = None;
-			break;
-		case Brute:
-			returnType = None;
-			break;
-		case Femme:
-			returnType = None;
-			break;
-		case Vile:
-			returnType = None;
-			break;
-		case Tyrant:
-			returnType = None;
-			break;
-		case Night:
-			returnType = None;
-			break;
-		case Wilder:
-			returnType = None;
-			break;
-		case Haunt:
-			returnType = None;
-			break;
-		case Foul:
-			returnType = None;
-			break;
-		case Seraph:
-			returnType = None;
-			break;
-		case Wargod:
-			returnType = None;
-			break;
-		case Genma:
-			returnType = None;
-			break;
-		case Dragon:
-			returnType = None;
-			break;
-		case Avatar:
-			returnType = None;
-			break;
-		case Avian:
-			returnType = None;
-			break;
-		case Raptor:
-			returnType = None;
-			break;
-		case Entity:
-			returnType = None;
-			break;
-		case Fiend:
-			returnType = None;
-			break;
-		case Elemental:
-			returnType = None;
-			break;
-		case Mitama:
-			returnType = None;
-			break;
-		}
-		break;
-	case Mitama:
 		switch (type2)
 		{
 		case Deity:
