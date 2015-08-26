@@ -22,14 +22,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    UNREFERENCED_PARAMETER(hPrevInstance);
+	UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Place code here.
 
-	// Set up Demons
+	allDemons = GetDemonList();
+	windowState = FindFusion;
 
-    // Initialize global strings
+	// Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_NOCTURNEDEMONFUSION, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
@@ -133,12 +134,30 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             // Parse the menu selections:
             switch (wmId)
             {
+			case ID_MODE_DEMONFUSION:
+				if (windowState != CheckFusion)
+				{
+					// Initialize the window setup
+
+					windowState = CheckFusion;
+				}
+				break;
+			case ID_MODE_FINDDEMON:
+				if (windowState != FindFusion)
+				{
+					// Initialize the window setup
+
+					windowState = FindFusion;
+				}
+				break;
             case IDM_ABOUT:
                 DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
                 break;
-            case IDM_EXIT:
+            case ID_EXIT:
                 DestroyWindow(hWnd);
                 break;
+			case IDM_EXIT:
+				DestroyWindow(hWnd);
             default:
                 return DefWindowProc(hWnd, message, wParam, lParam);
             }
@@ -149,6 +168,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: Add any drawing code that uses hdc here...
+
+			DrawWindow(hWnd);
+
             EndPaint(hWnd, &ps);
         }
         break;

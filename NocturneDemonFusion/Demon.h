@@ -45,41 +45,7 @@ enum DemonType
 using namespace std;
 
 
-string demonTypes[32] =
-{
-	"Deity",
-	"Megami",
-	"Fury",
-	"Lady",
-	"Kishin",
-	"Holy",
-	"Yoma",
-	"Fairy",
-	"Divine",
-	"Fallen",
-	"Snake",
-	"Beast",
-	"Jirae",
-	"Brute",
-	"Femme",
-	"Vile",
-	"Tyrant",
-	"Night",
-	"Wilder",
-	"Haunt",
-	"Foul",
-	"Seraph",
-	"Wargod",
-	"Genma",
-	"Dragon",
-	"Avatar",
-	"Avian",
-	"Raptor",
-	"Entity",
-	"Fiend",
-	"Elemental",
-	"Mitama"
-};
+extern string demonTypes[32];
 
 class Demon
 {
@@ -97,6 +63,7 @@ public:
 	~Demon();
 };
 
-vector<Demon> GetDemonList(DemonType ofType);
+vector<Demon> GetDemonList(DemonType ofType);	// Gets a certain type of demon
+vector<Demon> GetDemonList();					// Gets ALL demons
 
 DemonType GetDemonType(DemonType type1, DemonType type2);
