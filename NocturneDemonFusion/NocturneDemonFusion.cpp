@@ -28,7 +28,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // TODO: Place code here.
 
 	allDemons = GetDemonList();
-	windowState = FindFusion;
+
+	//windowState = FindFusion;
 
 	// Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -137,17 +138,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			case ID_MODE_DEMONFUSION:
 				if (windowState != CheckFusion)
 				{
-					// Initialize the window setup
-
 					windowState = CheckFusion;
+					EndFind(hWnd);
+					InitFusion(hWnd);
 				}
 				break;
 			case ID_MODE_FINDDEMON:
 				if (windowState != FindFusion)
 				{
-					// Initialize the window setup
-
 					windowState = FindFusion;
+					EndFusion(hWnd);
+					InitFind(hWnd);
 				}
 				break;
             case IDM_ABOUT:
@@ -169,9 +170,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: Add any drawing code that uses hdc here...
 
-			DrawWindow(hWnd);
+			DrawWindow(hWnd, ps, hdc);
 
-            EndPaint(hWnd, &ps);
+			// Called in window drawing function. Not needed.
+            //EndPaint(hWnd, &ps);
         }
         break;
     case WM_DESTROY:

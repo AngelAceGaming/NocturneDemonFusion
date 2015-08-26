@@ -1,50 +1,74 @@
 #include "stdafx.h"
 #include "WindowDraw.h"
 
-void DrawWindow(HWND hWnd)
+WindowState windowState = CheckFusion;
+
+void DrawWindow(HWND hWnd, PAINTSTRUCT ps, HDC hdc)
 {
 	switch (windowState)
 	{
 	case CheckFusion:
-		DrawCheckFusion(hWnd);
+		DrawCheckFusion(hWnd, ps, hdc);
 		break;
 	case FindFusion:
-		DrawFindFusion(hWnd);
+		DrawFindFusion(hWnd, ps, hdc);
 		break;
 	}
 }
 
-void DrawCheckFusion(HWND hWnd)
+void InitFusion(HWND hWnd)
 {
-	LPCWSTR message = L"Check Fusion";
-
-	PAINTSTRUCT ps;
-
-	RECT rect;
-	GetClientRect(hWnd, &rect);
-	BeginPaint(hWnd, &ps);
-	//SelectObject(ps.hdc, GetStockObject(BLACK_BRUSH));
-	//SetTextColor(ps.hdc, RGB(0, 0, 0, 255));
-	//SetRect(&rect, 10, 10, 100, 100);
-	//DrawText(ps.hdc, message, wcslen(message), &rect, DT_TOP | DT_LEFT);
-	EndPaint(hWnd, &ps);
-	ReleaseDC(hWnd, ps.hdc);
 }
 
-void DrawFindFusion(HWND hWnd)
+void InitFind(HWND hWnd)
 {
-	LPCWSTR message = L"Find Fusion";
 
-	PAINTSTRUCT ps;
+}
 
-	RECT rect;
-	GetClientRect(hWnd, &rect);
-	BeginPaint(hWnd, &ps);
-	SelectObject(ps.hdc, GetStockObject(BLACK_BRUSH));
-	Rectangle(ps.hdc, rect.left, rect.top, rect.right, rect.bottom);
-	//SetTextColor(ps.hdc, RGB(0, 0, 0, 255));
-	//SetRect(&rect, 10, 10, 100, 100);
-	//DrawText(ps.hdc, message, wcslen(message), &rect, DT_TOP | DT_LEFT);
+void DrawCheckFusion(HWND hWnd, PAINTSTRUCT ps, HDC hdc)
+{
+	RECT rec;
+
+	int savedDC = SaveDC(hdc);
+	SelectObject(hdc, GetStockObject(WHITE_BRUSH));
+	GetWindowRect(hWnd, &rec);
+	rec.top = 0;
+	rec.left = 0;
+	Rectangle(hdc, rec.left, rec.top, rec.right, rec.bottom);
+
+	DeleteDC(hdc);
 	EndPaint(hWnd, &ps);
-	ReleaseDC(hWnd, ps.hdc);
+	RestoreDC(hdc, savedDC);
+
+	InvalidateRect(hWnd, &rec, false);
+	UpdateWindow(hWnd);
+}
+
+void DrawFindFusion(HWND hWnd, PAINTSTRUCT ps, HDC hdc)
+{
+	RECT rec;
+
+	int savedDC = SaveDC(hdc);
+
+	SelectObject(hdc, GetStockObject(BLACK_BRUSH));
+	GetWindowRect(hWnd, &rec);
+	rec.top = 0;
+	rec.left = 0;
+	Rectangle(ps.hdc, rec.left, rec.top, rec.right, rec.bottom);
+
+	DeleteDC(hdc);
+	EndPaint(hWnd, &ps);
+	RestoreDC(hdc, savedDC);
+
+	InvalidateRect(hWnd, &rec, false);
+	UpdateWindow(hWnd);
+}
+
+void EndFusion(HWND hWnd)
+{
+
+}
+
+void EndFind(HWND hWnd)
+{
 }
